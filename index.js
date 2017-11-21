@@ -82,7 +82,12 @@ function processFrame(imageKey, frameData) {
   pipeline.background({ r: 0, g: 0, b: 0, alpha: 0 })
     .extend(extension);
 
-  return pipeline.toFile(path.join(basename, imageKey + '.png'))
+  let targetFile = imageKey;
+  if (path.extname(targetFile) === '') {
+    targetFile += '.png';
+  }
+
+  return pipeline.toFile(path.join(basename, targetFile))
     .catch((err) => {
       console.log('error:', imageKey, err);
     });
